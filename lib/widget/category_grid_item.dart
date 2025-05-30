@@ -14,7 +14,7 @@ class CategoryGridItem extends StatelessWidget {
     when he tap on the widget of (Meal App) he found any action! 
     */
     return InkWell(
-      // GestureDector
+      // GestureDetector
       onTap: () {
         final dummymeals =
             dummyMeals
@@ -34,7 +34,7 @@ class CategoryGridItem extends StatelessWidget {
           ),
         );
       },
-      splashColor: Theme.of(context).secondaryHeaderColor,
+      splashColor: Theme.of(context).primaryColor,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),

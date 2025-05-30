@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/model/meal.dart';
-
+import 'package:meal_app/screens/meal_detial_screen.dart';
 import '../widget/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
   const MealsScreen({super.key, required this.tital, required this.meals});
   final String tital;
   final List<Meal> meals;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +17,28 @@ class MealsScreen extends StatelessWidget {
 
         child: SingleChildScrollView(
           child: Column(
-            children: meals.map((meal) => MealItem(meal: meal)).toList(),
+            children:
+                meals
+                    .map(
+                      (meal) => MealItem(
+                        meal: meal,
+                        complexity: meal.complexity,
+                        affordability: meal.affordability,
+                        onselectedmeal: (Meal meal) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (ctx) => MealDetial(
+                                    meal: meal,
+                                    onPressedfavorite: (Meal meal) {},
+                                  ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                    .toList(),
           ),
         ),
       ),
