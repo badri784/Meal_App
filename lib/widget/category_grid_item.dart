@@ -2,11 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:meal_app/model/category.dart';
 import '../data/dummy_data.dart';
+import '../model/meal.dart';
 import '../screens/meals_screen.dart';
 
 class CategoryGridItem extends StatelessWidget {
-  const CategoryGridItem({required this.category, super.key});
+  const CategoryGridItem({
+    required this.category,
+    super.key,
+    required this.ontogglefavorite,
+  });
   final Category category;
+  final void Function(Meal meal) ontogglefavorite;
+
   @override
   Widget build(BuildContext context) {
     /* InkWell and GestureDector is  the same function but have a small deffrentو 
@@ -30,7 +37,11 @@ class CategoryGridItem extends StatelessWidget {
           */
           MaterialPageRoute(
             builder:
-                (ctx) => MealsScreen(tital: category.title, meals: dummymeals),
+                (ctx) => MealsScreen(
+                  tital: category.title,
+                  meals: dummymeals,
+                  ontogglefavorite: ontogglefavorite,
+                ),
           ),
         );
       },

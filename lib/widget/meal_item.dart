@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:meal_app/model/meal.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MealItem extends StatelessWidget {
   const MealItem({
@@ -45,9 +45,6 @@ class MealItem extends StatelessWidget {
 
     return Card(
       margin: const EdgeInsets.all(12),
-      // shape: BeveledRectangleBorder(
-      //borderRadius: BorderRadius.circular(15)),
-      // clipBehavior: Clip.antiAlias,
       elevation: 2,
       child: InkWell(
         onTap: () => onselectedmeal(meal),
@@ -60,18 +57,18 @@ class MealItem extends StatelessWidget {
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                   ),
-                  child: FadeInImage(
-                    placeholder: MemoryImage(kTransparentImage),
-
-                    //const AssetImage("image/quiz-logo.png"),
-                    image: NetworkImage(meal.imageUrl),
-                    imageErrorBuilder:
-                        (context, error, stackTrace) =>
-                            Image.asset("image/quiz-logo.png"),
+                  child: CachedNetworkImage(
+                    imageUrl: meal.imageUrl,
+                    height: 200,
+                    width: double.infinity,
                     fit: BoxFit.cover,
+                    placeholder:
+                        (context, url) =>
+                            const Center(child: CircularProgressIndicator()),
+                    errorWidget:
+                        (context, url, error) => const Icon(Icons.error),
                   ),
                 ),
-
                 Positioned(
                   bottom: 0,
                   left: 0,

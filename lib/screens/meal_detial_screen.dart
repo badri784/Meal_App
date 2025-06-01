@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:meal_app/model/meal.dart';
 
@@ -7,29 +8,44 @@ class MealDetial extends StatelessWidget {
   const MealDetial({
     super.key,
     required this.meal,
-    required this.onPressedfavorite,
+    required this.ontogglefavorite,
   });
   final Meal meal;
-  final void Function(Meal meal) onPressedfavorite;
+  final void Function(Meal meal) ontogglefavorite;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.star))],
+        actions: [
+          IconButton(
+            onPressed: () => ontogglefavorite(meal),
+            icon: const Icon(Icons.star),
+          ),
+        ],
       ),
 
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              meal.imageUrl,
-              height: 300,
-              width: double.infinity,
+            // Image.network(
+            //   meal.imageUrl,
+            //   height: 300,
+            //   width: double.infinity,
+            //   fit: BoxFit.cover,
+            // ),
+            CachedNetworkImage(
+              imageUrl: meal.imageUrl,
+              height: 325,
+              placeholder:
+                  (context, url) =>
+                      const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               fit: BoxFit.cover,
             ),
+
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
