@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key});
+  const MainDrawer({super.key, required this.onselectscreen});
+
+  final void Function(String identfire) onselectscreen;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,6 @@ class MainDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             padding: const EdgeInsets.all(20),
-
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -40,12 +41,32 @@ class MainDrawer extends StatelessWidget {
               ],
             ),
           ),
-          Text(
-            "HOw are you",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 18,
+          ListTile(
+            onTap: () {
+              onselectscreen('meal');
+            },
+            title: Text(
+              "Meals",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+                fontSize: 20,
+              ),
             ),
+            leading: const Icon(Icons.filter, size: 30),
+          ),
+          ListTile(
+            onTap: () {
+              onselectscreen('filters');
+            },
+            internalAddSemanticForOnTap: true,
+            title: Text(
+              "Filters",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onBackground,
+                fontSize: 20,
+              ),
+            ),
+            leading: const Icon(Icons.settings, size: 30),
           ),
         ],
       ),

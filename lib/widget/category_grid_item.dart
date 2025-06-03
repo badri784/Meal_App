@@ -1,19 +1,20 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:meal_app/model/category.dart';
-import '../data/dummy_data.dart';
 import '../model/meal.dart';
 import '../screens/meals_screen.dart';
 
 class CategoryGridItem extends StatelessWidget {
   const CategoryGridItem({
-    required this.category,
     super.key,
+
+    required this.category,
     required this.ontogglefavorite,
+    required this.availableMeals,
   });
   final Category category;
   final void Function(Meal meal) ontogglefavorite;
-
+  final List<Meal> availableMeals;
   @override
   Widget build(BuildContext context) {
     /* InkWell and GestureDector is  the same function but have a small deffrentو 
@@ -23,8 +24,8 @@ class CategoryGridItem extends StatelessWidget {
     return InkWell(
       // GestureDetector
       onTap: () {
-        final dummymeals =
-            dummyMeals
+        final List<Meal> dummymeals =
+            availableMeals
                 .where((element) => element.categories.contains(category.id))
                 .toList();
 
