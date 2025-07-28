@@ -66,7 +66,8 @@ class MealItem extends StatelessWidget {
                         (context, url) =>
                             const Center(child: CircularProgressIndicator()),
                     errorWidget:
-                        (context, url, error) => const Icon(Icons.error),
+                        (context, url, error) =>
+                            const Center(child: Icon(Icons.error, size: 120)),
                   ),
                 ),
                 Positioned(
