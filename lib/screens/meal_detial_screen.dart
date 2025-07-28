@@ -2,25 +2,48 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_app/model/meal.dart';
 
-class MealDetial extends StatelessWidget {
-  const MealDetial({
-    super.key,
-    required this.meal,
-    required this.ontogglefavorite,
-  });
+import '../meals_provider/favoraite_meal.dart';
+
+class MealDetial extends ConsumerWidget {
+  const MealDetial({super.key, required this.meal});
   final Meal meal;
-  final void Function(Meal meal) ontogglefavorite;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () => ontogglefavorite(meal),
+            onPressed: () {
+              final wasadded = ref
+                  .read(favoraiteMealProvider.notifier)
+                  .onToggleFavorateMeal(meal);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    wasadded
+                        ? "This meal wase removed!"
+                        : "This meal wase added!",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontSize: 16,
+                    ),
+                  ),
+                  backgroundColor: const Color.fromARGB(255, 36, 117, 189),
+                  behavior: SnackBarBehavior.floating,
+                  margin: const EdgeInsets.all(12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(12),
+                  ),
+                  elevation: 6,
+                  duration: const Duration(seconds: 4),
+                ),
+              );
+            },
             icon: const Icon(Icons.star),
           ),
         ],

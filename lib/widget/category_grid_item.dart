@@ -9,11 +9,9 @@ class CategoryGridItem extends StatelessWidget {
     super.key,
 
     required this.category,
-    required this.ontogglefavorite,
     required this.availableMeals,
   });
   final Category category;
-  final void Function(Meal meal) ontogglefavorite;
   final List<Meal> availableMeals;
   @override
   Widget build(BuildContext context) {
@@ -38,11 +36,7 @@ class CategoryGridItem extends StatelessWidget {
           */
           MaterialPageRoute(
             builder:
-                (ctx) => MealsScreen(
-                  tital: category.title,
-                  meals: dummymeals,
-                  ontogglefavorite: ontogglefavorite,
-                ),
+                (ctx) => MealsScreen(tital: category.title, meals: dummymeals),
           ),
         );
       },

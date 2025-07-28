@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meal_app/meals_provider/meals_provider.dart';
 
+import '../meals_provider/favoraite_meal.dart';
 import '../model/meal.dart';
 import '../screens/category_screen.dart';
 import '../screens/filters_screen.dart';
@@ -25,37 +26,7 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int selectedpageindex = 0;
 
-  final List<Meal> favoritesmeal = [];
-
   Map<Filters, bool> _selectedfilter = kInitialFilter;
-
-  void showmassage(String massage) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(massage),
-        showCloseIcon: true,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        clipBehavior: Clip.hardEdge,
-      ),
-    );
-  }
-
-  void onToggleFavorateMeal(Meal meal) {
-    final isexisting = favoritesmeal.contains(meal);
-    if (isexisting) {
-      setState(() {
-        favoritesmeal.remove(meal);
-        showmassage("This meal wase removed!");
-      });
-    } else {
-      setState(() {
-        favoritesmeal.add(meal);
-        showmassage("This meal wase added!");
-      });
-    }
-  }
 
   void selectpage(int index) {
     setState(() {
@@ -100,16 +71,11 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
           return true;
         }).toList();
 
-    Widget activesecrren = CategoryScreen(
-      ontogglefavorite: onToggleFavorateMeal,
-      availableMeals: availableMeals,
-    );
+    Widget activesecrren = CategoryScreen(availableMeals: availableMeals);
     var activepagetitle = "Category";
     if (selectedpageindex == 1) {
-      activesecrren = MealsScreen(
-        meals: favoritesmeal,
-        ontogglefavorite: onToggleFavorateMeal,
-      );
+      final favoritesmeal = ref.watch(favoraiteMealProvider);
+      activesecrren = MealsScreen(meals: favoritesmeal);
       activepagetitle = "Favorites";
     }
     return Scaffold(
