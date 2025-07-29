@@ -26,8 +26,8 @@ class MealDetial extends ConsumerWidget {
                 SnackBar(
                   content: Text(
                     wasadded
-                        ? "This meal wase removed!"
-                        : "This meal wase added!",
+                        ? "This meal was removed!"
+                        : "This meal was added!",
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onSurface,
                       fontSize: 16,
@@ -35,7 +35,11 @@ class MealDetial extends ConsumerWidget {
                   ),
                   backgroundColor: const Color.fromARGB(255, 36, 117, 189),
                   behavior: SnackBarBehavior.floating,
-                  margin: const EdgeInsets.all(12),
+                  margin: const EdgeInsets.only(
+                    left: 10,
+                    right: 10,
+                    bottom: 15,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadiusGeometry.circular(12),
                   ),
