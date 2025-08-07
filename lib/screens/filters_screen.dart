@@ -11,7 +11,7 @@ class FiltersScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activefilter = ref.read(filterMealProvider);
+    final activefilter = ref.watch(filterMealProvider);
     return Scaffold(
       appBar: AppBar(title: const Text("Your Filters"), centerTitle: true),
 

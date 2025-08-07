@@ -12,6 +12,8 @@ class MealDetial extends ConsumerWidget {
   final Meal meal;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final List<Meal> favoraitmeal = ref.watch(favoraiteMealProvider);
+    final isexiest = favoraitmeal.contains(meal);
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -48,7 +50,8 @@ class MealDetial extends ConsumerWidget {
                 ),
               );
             },
-            icon: const Icon(Icons.star),
+
+            icon: Icon(isexiest ? Icons.star : Icons.star_border),
           ),
         ],
       ),

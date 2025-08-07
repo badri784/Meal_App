@@ -9,6 +9,7 @@ import '../screens/category_screen.dart';
 import '../screens/filters_screen.dart';
 import '../screens/meals_screen.dart';
 import '../widget/main_drawer.dart';
+import '../meals_provider/nav_bar_provider.dart';
 
 // const kInitialFilter = {
 //   Filters.glotenfree: false,
@@ -25,14 +26,6 @@ class TabsScreen extends ConsumerStatefulWidget {
 }
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
-  int selectedpageindex = 0;
-
-  void selectpage(int index) {
-    setState(() {
-      selectedpageindex = index;
-    });
-  }
-
   void setsecrren(String identfire) {
     Navigator.of(context).pop();
 
@@ -43,6 +36,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     }
   }
 
+  int selectedpageindex = 0;
   @override
   Widget build(BuildContext context) {
     final mealProvider = ref.watch(mealsprovider);
@@ -76,7 +70,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       body: activesecrren,
       drawer: MainDrawer(onselectscreen: setsecrren),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: selectpage,
+        onTap: ref.read(navbarpro.notifier).setscreen,
         currentIndex: selectedpageindex,
         selectedFontSize: 16,
         items: const [
